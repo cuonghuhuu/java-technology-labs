@@ -1,0 +1,20 @@
+Java là ngôn ngữ lập trình hướng đối tượng phổ biến.
+Swing là thư viện xây dựng giao diện trong Java SE.
+Event Handling giúp ứng dụng phản hồi thao tác của người dùng.
+EDT là luồng chuyên xử lý sự kiện và cập nhật giao diện Swing.
+SwingWorker giúp chạy công việc lâu ở luồng nền.
+Phương thức doInBackground không chạy trên EDT.
+Phương thức process nhận dữ liệu do publish gửi về.
+PropertyChangeListener có thể theo dõi thuộc tính progress.
+JProgressBar cho người dùng biết tiến độ xử lý.
+JFileChooser giúp chọn file mà không dùng đường dẫn tuyệt đối.
+JTable phù hợp để trình bày dữ liệu dạng bảng.
+Java hỗ trợ đa luồng thông qua nhiều API khác nhau.
+Một tác vụ nền không nên cập nhật trực tiếp Swing component.
+Phương thức done của SwingWorker chạy trên EDT.
+Có thể gọi get trong done để nhận kết quả cuối cùng.
+Hủy tác vụ bằng cancel và kiểm tra isCancelled thường xuyên.
+Ứng dụng tốt phải tiếp tục phản hồi trong khi xử lý file lớn.
+CSV là định dạng văn bản đơn giản để lưu dữ liệu dạng bảng.
+Lab 4 kết hợp Java Swing với kỹ thuật lập trình đa luồng.
+Kết thúc dữ liệu mẫu cho chức năng tìm kiếm và đếm dòng.
