@@ -1,0 +1,3 @@
+package vn.edu.eaut.lab5.bus;
+import vn.edu.eaut.lab5.dal.ThongKeDAL; import vn.edu.eaut.lab5.model.*; import java.sql.SQLException; import java.time.LocalDate;
+public class ThongKeBUS {private final ThongKeDAL dal=new ThongKeDAL();public ThongKeData thongKe(LocalDate a,LocalDate b)throws SQLException{if(a==null||b==null||b.isBefore(a))throw new IllegalArgumentException("Khoảng ngày không hợp lệ");ThongKeData d=new ThongKeData();d.setDoanhThu(dal.doanhThu(a,b));d.setHoaDonLonNhat(dal.hoaDonLonNhat(a,b));Object[] x=dal.sanPhamBanChay(a,b);if(x!=null){d.setSanPhamBanChay((String)x[0]);d.setSoLuongBanChay((Integer)x[1]);}return d;}}
