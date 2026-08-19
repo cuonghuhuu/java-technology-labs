@@ -1,0 +1,21 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<header class="topbar">
+    <div class="topbar-inner">
+        <a class="brand" href="${pageContext.request.contextPath}/">Java Lab 7</a>
+        <nav class="nav">
+            <a href="${pageContext.request.contextPath}/sinh-vien">Sinh viên</a>
+            <a href="${pageContext.request.contextPath}/sach">Sách</a>
+            <a href="${pageContext.request.contextPath}/san-pham">Sản phẩm</a>
+            <a href="${pageContext.request.contextPath}/lop-hoc">Lớp học</a>
+            <a href="${pageContext.request.contextPath}/diem">Điểm</a>
+            <a href="${pageContext.request.contextPath}/gio-hang">Giỏ hàng</a>
+            <c:choose>
+                <c:when test="${not empty sessionScope.username}">
+                    <span class="nav-user">Xin chào, ${sessionScope.username}</span>
+                    <a href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
+                </c:when>
+                <c:otherwise><a href="${pageContext.request.contextPath}/login.jsp">Đăng nhập</a></c:otherwise>
+            </c:choose>
+        </nav>
+    </div>
+</header>

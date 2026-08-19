@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="
+             https://jakarta.ee/xml/ns/jakartaee
+             https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <display-name>Lab 7 - CRUD MVC</display-name>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+
+            <!-- Bắt buộc xử lý ${...} -->
+            <el-ignored>false</el-ignored>
+
+            <page-encoding>UTF-8</page-encoding>
+
+            <default-content-type>
+                text/html;charset=UTF-8
+            </default-content-type>
+        </jsp-property-group>
+    </jsp-config>
+
+</web-app>
