@@ -1,0 +1,145 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+    <div class="container-fluid px-lg-4">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="${pageContext.request.contextPath}/dashboard">
+            <i class="bi bi-shield-lock-fill text-primary fs-4"></i>
+            <span>EAUT <span class="badge bg-primary fs-6">Lab 10</span></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- Guest or General Home -->
+                <c:if test="${empty sessionScope.currentUser}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">
+                            <i class="bi bi-house-door me-1"></i> Trang chủ
+                        </a>
+                    </li>
+                </c:if>
+
+                <!-- Authenticated User (ADMIN, STAFF, USER) -->
+                <c:if test="${not empty sessionScope.currentUser}">
+                    <li class="nav-item">
+                        <a class="nav-link ${activePage == 'dashboard' ? 'active text-primary fw-bold' : ''}"
+                           href="${pageContext.request.contextPath}/dashboard">
+                            <i class="bi bi-speedometer2 me-1"></i> Dashboard
+                        </a>
+                    </li>
+
+                    <!-- STAFF & ADMIN Modules: Sinh Vien, Sach, San Pham -->
+                    <c:if test="${sessionScope.currentUser.role == 'ADMIN' || sessionScope.currentUser.role == 'STAFF'}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle ${activeGroup == 'business' ? 'active text-primary fw-bold' : ''}"
+                               href="#" id="businessDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-briefcase me-1"></i> Nghiệp vụ
+                            </a>
+                            <ul class="dropdown-menu shadow border-0" aria-labelledby="businessDropdown">
+                                <li>
+                                    <a class="dropdown-item ${activePage == 'sinhvien' ? 'active' : ''}"
+                                       href="${pageContext.request.contextPath}/staff/sinh-vien">
+                                        <i class="bi bi-people-fill text-primary me-2"></i> Quản lý Sinh viên
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item ${activePage == 'sach' ? 'active' : ''}"
+                                       href="${pageContext.request.contextPath}/staff/sach">
+                                        <i class="bi bi-book-half text-success me-2"></i> Quản lý Sách
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item ${activePage == 'sanpham' ? 'active' : ''}"
+                                       href="${pageContext.request.contextPath}/staff/san-pham">
+                                        <i class="bi bi-box-seam-fill text-warning me-2"></i> Quản lý Sản phẩm
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:if>
+
+                    <!-- ADMIN Only Menu: User Management & Audit Logs -->
+                    <c:if test="${sessionScope.currentUser.role == 'ADMIN'}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle ${activeGroup == 'admin' ? 'active text-danger fw-bold' : ''}"
+                               href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-gear-fill text-danger me-1"></i> Quản trị hệ thống
+                            </a>
+                            <ul class="dropdown-menu shadow border-0" aria-labelledby="adminDropdown">
+                                <li>
+                                    <a class="dropdown-item ${activePage == 'users' ? 'active' : ''}"
+                                       href="${pageContext.request.contextPath}/admin/users">
+                                        <i class="bi bi-person-badge-fill text-danger me-2"></i> Quản lý Người dùng
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item ${activePage == 'logs' ? 'active' : ''}"
+                                       href="${pageContext.request.contextPath}/admin/logs">
+                                        <i class="bi bi-clock-history text-info me-2"></i> Nhật ký hoạt động (Logs)
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:if>
+                </c:if>
+            </ul>
+
+            <!-- Right side: Authentication / User Info -->
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <c:choose>
+                    <c:when test="${empty sessionScope.currentUser}">
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm px-3 shadow-sm rounded-pill"
+                               href="${pageContext.request.contextPath}/login.jsp">
+                                <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="userMenuDropdown"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="badge rounded-pill
+                                    <c:choose>
+                                        <c:when test="${sessionScope.currentUser.role == 'ADMIN'}">bg-danger</c:when>
+                                        <c:when test="${sessionScope.currentUser.role == 'STAFF'}">bg-warning text-dark</c:when>
+                                        <c:otherwise>bg-success</c:otherwise>
+                                    </c:choose>">
+                                    ${sessionScope.currentUser.role}
+                                </span>
+                                <span class="fw-semibold text-light">${sessionScope.currentUser.fullName}</span>
+                                <i class="bi bi-person-circle fs-5 text-secondary"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" aria-labelledby="userMenuDropdown">
+                                <li class="px-3 py-2 border-bottom">
+                                    <small class="text-muted d-block">Đăng nhập với email:</small>
+                                    <span class="fw-bold small text-truncate d-block">${sessionScope.currentUser.email}</span>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="${pageContext.request.contextPath}/user/profile">
+                                        <i class="bi bi-person-lines-fill text-primary me-2"></i> Hồ sơ cá nhân
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="${pageContext.request.contextPath}/user/change-password">
+                                        <i class="bi bi-key-fill text-warning me-2"></i> Đổi mật khẩu
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item py-2 text-danger" href="${pageContext.request.contextPath}/auth?action=logout">
+                                        <i class="bi bi-box-arrow-right text-danger me-2"></i> Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </div>
+    </div>
+</nav>

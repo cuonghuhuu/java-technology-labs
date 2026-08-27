@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+             https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+
+    <persistence-unit name="lab10PU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Managed Entity Classes -->
+        <class>vn.edu.eaut.lab10.model.User</class>
+        <class>vn.edu.eaut.lab10.model.SinhVien</class>
+        <class>vn.edu.eaut.lab10.model.Sach</class>
+        <class>vn.edu.eaut.lab10.model.SanPham</class>
+        <class>vn.edu.eaut.lab10.model.ActivityLog</class>
+
+        <properties>
+            <!-- ============================================== -->
+            <!-- Option 1: H2 Embedded Database (Default - Chạy ngay không cần cài MySQL) -->
+            <!-- ============================================== -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:lab10db;DB_CLOSE_DELAY=-1;NON_KEYWORDS=USER;MODE=MySQL"/>
+            <property name="jakarta.persistence.jdbc.user" value="sa"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/>
+
+            <!-- ============================================== -->
+            <!-- Option 2: MySQL Database (Bỏ comment để dùng MySQL thật) -->
+            <!-- ============================================== -->
+            <!--
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lab10_db?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;characterEncoding=UTF-8"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="123456"/>
+            -->
+
+            <!-- Hibernate Settings -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.highlight_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
