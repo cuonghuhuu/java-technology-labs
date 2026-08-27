@@ -36,4 +36,4 @@ Xếp loại: A (>= 8.5), B (>= 7.0), C (>= 5.5), D (>= 4.0), F (< 4.0).
 mvn clean package
 ```
 
-Deploy file `target/lab07-crud-mvc.war` lên Tomcat 10.1.x (Java 17). Truy cập `/lab07-crud-mvc/`.
+Deploy file `target/lab07-crud-mvc.war` lên Tomcat 10.1.x (Java 25). Truy cập `/lab07-crud-mvc/`.
