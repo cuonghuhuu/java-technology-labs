@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách sinh viên - Lab 11</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS (Bài 10) -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <!-- Menu điều hướng chung (Bài 7) -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container-main container">
+        <!-- Header phần danh sách sinh viên -->
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
+            <div>
+                <h3 class="fw-bold mb-1">
+                    <i class="bi bi-people-fill text-primary me-2"></i>Danh Sách Sinh Viên
+                </h3>
+                <p class="text-muted mb-0">Dữ liệu sinh viên được nạp từ Controller và hiển thị động qua Thymeleaf</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge bg-primary fs-6 px-3 py-2">
+                    Tổng số: <span th:text="${totalStudents != null ? totalStudents : #lists.size(students)}">3</span> sinh viên
+                </span>
+                <a th:href="@{/}" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-arrow-left me-1"></i> Trang chủ
+                </a>
+            </div>
+        </div>
+
+        <!-- Bảng hiển thị danh sách sinh viên (Bài 4) -->
+        <div class="table-custom-container">
+            <div class="table-responsive">
+                <table class="table table-custom table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="width: 70px;">STT</th>
+                            <th>Mã SV</th>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Lớp</th>
+                            <th class="text-center" style="width: 120px;">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Vòng lặp Thymeleaf hiển thị từng sinh viên -->
+                        <tr th:each="s, stat : ${students}">
+                            <td class="text-center fw-semibold text-muted" th:text="${stat.count}">1</td>
+                            <td>
+                                <span class="badge-code" th:text="${s.studentCode}">SV001</span>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle bg-light border d-flex align-items-center justify-content-center text-primary fw-bold" style="width: 34px; height: 34px;">
+                                        <i class="bi bi-person"></i>
+                                    </div>
+                                    <strong class="text-dark" th:text="${s.fullName}">Nguyễn Văn An</strong>
+                                </div>
+                            </td>
+                            <td>
+                                <a th:href="'mailto:' + ${s.email}" class="text-decoration-none" th:text="${s.email}">
+                                    an@eaut.edu.vn
+                                </a>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark border" th:text="${s.className}">DCCNTT13.10.1</span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                                    <i class="bi bi-check-circle me-1"></i>Đang học
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Chú thích bài tập -->
+        <div class="alert alert-info d-flex align-items-center gap-3 mt-4" role="alert">
+            <i class="bi bi-info-circle-fill fs-4 text-info"></i>
+            <div>
+                <strong>Ghi chú kỹ thuật (Bài 4 - Spring MVC & Thymeleaf):</strong>
+                Dữ liệu được khởi tạo tại <code>StudentController.java</code>, đưa vào đối tượng <code>Model</code> qua thuộc tính <code>"students"</code>, và được lặp bằng cú pháp <code>th:each="s : ${students}"</code> trên file template <code>students.html</code>.
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer chung -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Trang chủ - Quản lý sinh viên</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS (Bài 10) -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <!-- Menu điều hướng chung (Bài 7) -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container-main container">
+        <!-- Hero Section (Bài 2) -->
+        <div class="hero-section text-center text-md-start">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="badge bg-light text-primary mb-3 px-3 py-2 fw-semibold">
+                        <i class="bi bi-rocket-takeoff-fill me-1"></i> Lab 11 - Spring Boot & Thymeleaf
+                    </div>
+                    <h1 class="hero-title" th:text="${message}">Chào mừng đến với Spring Boot</h1>
+                    <p class="hero-subtitle">
+                        Hệ thống thực hành phát triển ứng dụng Web đa lớp theo kiến trúc MVC hiện đại với Spring Framework & Thymeleaf Template Engine.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-md-start">
+                        <a th:href="@{/students}" class="btn btn-light fw-bold text-primary px-4 py-2 shadow-sm">
+                            <i class="bi bi-people-fill me-1"></i> Danh sách sinh viên
+                        </a>
+                        <a th:href="@{/courses}" class="btn btn-outline-custom">
+                            <i class="bi bi-journal-text me-1"></i> Khóa học mẫu
+                        </a>
+                        <a th:href="@{/about}" class="btn btn-outline-custom">
+                            <i class="bi bi-info-circle me-1"></i> Giới thiệu Lab
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <i class="bi bi-laptop text-white" style="font-size: 8rem; opacity: 0.85;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thống kê nhanh & Tính năng chính -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="card-custom p-4 text-center">
+                    <div class="stat-icon stat-icon-blue mx-auto">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h5 class="fw-bold">Quản lý Sinh viên</h5>
+                    <p class="text-muted small mb-3">Xem danh sách sinh viên với đầy đủ mã SV, họ tên, email và lớp học.</p>
+                    <a th:href="@{/students}" class="btn btn-sm btn-outline-primary fw-semibold">
+                        Xem chi tiết <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card-custom p-4 text-center">
+                    <div class="stat-icon stat-icon-green mx-auto">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <h5 class="fw-bold">Chương trình Đào tạo</h5>
+                    <p class="text-muted small mb-3">Theo dõi 5 khóa học mẫu gồm mã môn, tên môn học và số tín chỉ.</p>
+                    <a th:href="@{/courses}" class="btn btn-sm btn-outline-success fw-semibold">
+                        Khám phá khóa học <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card-custom p-4 text-center">
+                    <div class="stat-icon stat-icon-purple mx-auto">
+                        <i class="bi bi-building-check"></i>
+                    </div>
+                    <h5 class="fw-bold">Liên hệ & Hỗ trợ</h5>
+                    <p class="text-muted small mb-3">Thông tin liên hệ Khoa Công nghệ Thông tin - EAUT và bộ phận giải đáp.</p>
+                    <a th:href="@{/contact}" class="btn btn-sm btn-outline-secondary fw-semibold">
+                        Liên hệ Khoa <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Danh sách đặc điểm nổi bật -->
+        <div class="card-custom">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <span class="fw-bold"><i class="bi bi-stars text-warning me-2"></i>Nội dung cốt lõi của Chương 4 & Lab 11</span>
+                <span class="badge bg-primary">EAUT - IT3242</span>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center gap-2" th:each="feat : ${features}">
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                        <span th:text="${feat}">Tính năng Spring Boot</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer chung -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

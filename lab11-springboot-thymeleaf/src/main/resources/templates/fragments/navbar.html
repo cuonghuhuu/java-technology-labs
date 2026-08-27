@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- Fragment Navbar dùng chung cho toàn bộ các trang (Bài 7) -->
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">
+                <i class="bi bi-mortarboard-fill"></i>
+                <span>EAUT | Spring Boot</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activePage == 'home' ? 'active' : ''}" th:href="@{/}">
+                            <i class="bi bi-house-door me-1"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activePage == 'students' ? 'active' : ''}" th:href="@{/students}">
+                            <i class="bi bi-people me-1"></i> Sinh viên
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activePage == 'courses' ? 'active' : ''}" th:href="@{/courses}">
+                            <i class="bi bi-journal-bookmark me-1"></i> Khóa học
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activePage == 'about' ? 'active' : ''}" th:href="@{/about}">
+                            <i class="bi bi-info-circle me-1"></i> Giới thiệu
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:classappend="${activePage == 'contact' ? 'active' : ''}" th:href="@{/contact}">
+                            <i class="bi bi-envelope me-1"></i> Liên hệ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ Khoa CNTT - Lab 11</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS (Bài 10) -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <!-- Menu điều hướng chung (Bài 7) -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container-main container">
+        <!-- Tiêu đề trang liên hệ (Bài 6) -->
+        <div class="text-center mb-4">
+            <div class="badge bg-primary px-3 py-2 mb-2">
+                <i class="bi bi-geo-alt-fill me-1"></i> Thông Tin Liên Hệ
+            </div>
+            <h2 class="fw-bold" th:text="${contact.facultyName}">Khoa Công nghệ Thông tin</h2>
+            <p class="text-muted" th:text="${contact.university}">Trường Đại học Công nghệ Đông Á (EAUT)</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Cột trái: Thông tin liên hệ chi tiết -->
+            <div class="col-lg-6">
+                <div class="card-custom h-100 p-4">
+                    <h5 class="fw-bold mb-4 pb-2 border-bottom">
+                        <i class="bi bi-telephone-inbound-fill text-primary me-2"></i>Chi Tiết Liên Lạc
+                    </h5>
+
+                    <div class="contact-item">
+                        <i class="bi bi-geo-alt-fill text-danger"></i>
+                        <div>
+                            <strong>Địa chỉ văn phòng:</strong>
+                            <p class="text-muted mb-0" th:text="${contact.address}">
+                                Tòa nhà EAUT, Đường Trịnh Văn Bô, Xuân Phương, Nam Từ Liêm, Hà Nội
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="bi bi-envelope-fill text-primary"></i>
+                        <div>
+                            <strong>Email tiếp nhận thông tin:</strong>
+                            <p class="mb-0">
+                                <a th:href="'mailto:' + ${contact.email}" class="text-decoration-none fw-semibold" th:text="${contact.email}">
+                                    fit@eaut.edu.vn
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="bi bi-telephone-fill text-success"></i>
+                        <div>
+                            <strong>Điện thoại bàn / Hotline:</strong>
+                            <p class="text-muted mb-0">
+                                <span class="fw-semibold text-dark" th:text="${contact.phone}">024.6262.7797</span> - Hotline: <span class="badge bg-danger" th:text="${contact.hotline}">0388.656.656</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="bi bi-globe text-info"></i>
+                        <div>
+                            <strong>Website chính thức:</strong>
+                            <p class="mb-0">
+                                <a th:href="${contact.website}" target="_blank" class="text-decoration-none" th:text="${contact.website}">
+                                    https://eaut.edu.vn
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="bi bi-clock-fill text-warning"></i>
+                        <div>
+                            <strong>Thời gian làm việc:</strong>
+                            <p class="text-muted mb-0" th:text="${contact.workingHours}">
+                                Thứ 2 - Thứ 6: 08:00 - 17:00
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item mb-0">
+                        <i class="bi bi-person-workspace text-secondary"></i>
+                        <div>
+                            <strong>Trưởng khoa / Ban chủ nhiệm:</strong>
+                            <p class="text-muted mb-0" th:text="${contact.departmentHead}">
+                                TS. Trưởng Khoa CNTT
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột phải: Form gửi tin nhắn hỗ trợ sinh viên -->
+            <div class="col-lg-6">
+                <div class="card-custom h-100 p-4">
+                    <h5 class="fw-bold mb-4 pb-2 border-bottom">
+                        <i class="bi bi-chat-left-text-fill text-success me-2"></i>Gửi Tin Nhắn / Thắc Mắc
+                    </h5>
+
+                    <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã gửi ý kiến phản hồi! Chúng tôi sẽ liên hệ lại sớm nhất.');">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Họ và tên của bạn</label>
+                            <input type="text" class="form-control" placeholder="Ví dụ: Nguyễn Văn An" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Địa chỉ Email</label>
+                            <input type="email" class="form-control" placeholder="an@eaut.edu.vn" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Mã sinh viên & Lớp</label>
+                            <input type="text" class="form-control" placeholder="SV001 - DCCNTT13.10.1">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small">Nội dung câu hỏi / liên hệ</label>
+                            <textarea class="form-control" rows="4" placeholder="Nhập nội dung cần hỗ trợ về học phần Công nghệ Java..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary-custom w-100">
+                            <i class="bi bi-send-fill me-1"></i> Gửi Tin Nhắn
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer chung -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
