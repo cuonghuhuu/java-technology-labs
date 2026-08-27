@@ -1,0 +1,11 @@
+:root { --primary: #1d4ed8; --dark: #172554; --line: #dbe3ef; --bg: #f5f7fb; --danger: #b91c1c; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: #1f2937; font-family: Arial, sans-serif; line-height: 1.5; }
+.container { max-width: 1050px; margin: 0 auto; padding: 28px 18px; }.narrow { max-width: 620px; }.hero { padding-top: 10vh; }
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 28px; box-shadow: 0 8px 24px #1e3a5f12; }
+.navbar { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }.navbar a, a { color: var(--primary); text-decoration: none; }.navbar a:hover, a:hover { text-decoration: underline; }
+h1 { color: var(--dark); margin-top: 0; } h2 { color: var(--dark); margin-top: 28px; }.eyebrow, .muted { color: #64748b; }.heading-row, .actions, .search-form { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }.heading-row { justify-content: space-between; }
+.form-grid { display: grid; gap: 16px; }.form-grid label { display: grid; gap: 6px; font-weight: 600; } input { border: 1px solid #b9c5d6; border-radius: 7px; padding: 10px; font: inherit; width: 100%; }
+button, .button { display: inline-block; border: 0; border-radius: 7px; padding: 10px 15px; background: var(--primary); color: #fff; font: inherit; cursor: pointer; text-decoration: none; }.button:hover { text-decoration: none; background: #1e40af; }.secondary { background: #64748b; }.danger { color: var(--danger); }
+.alert { border-radius: 7px; padding: 10px 12px; }.error { color: #991b1b; background: #fef2f2; border: 1px solid #fecaca; }.info { color: #1e40af; background: #eff6ff; border: 1px solid #bfdbfe; }
+.table-wrap { overflow-x: auto; } table { width: 100%; border-collapse: collapse; margin-top: 16px; } th, td { padding: 11px; text-align: left; border-bottom: 1px solid var(--line); } th { color: var(--dark); background: #f8fafc; }.link-button { margin-right: 8px; }.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }.card { border-left: 4px solid var(--primary); padding: 16px; background: #eff6ff; border-radius: 7px; }.card span, .card strong { display: block; }.card strong { font-size: 1.2rem; color: var(--dark); }.center { text-align: center; }
