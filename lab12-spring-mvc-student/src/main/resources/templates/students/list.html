@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Sinh Viên - Lab 12 Spring MVC</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header Navbar Fragment -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container my-4">
+        <!-- Thông báo Flash Messages -->
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <span th:text="${errorMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!-- Thanh công cụ & Tìm kiếm -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <div class="row g-3 align-items-center justify-content-between">
+                    <!-- Nút Thêm mới -->
+                    <div class="col-md-4">
+                        <a th:href="@{/students/create}" class="btn btn-primary shadow-sm">
+                            <i class="bi bi-person-plus-fill me-1"></i> Thêm mới sinh viên
+                        </a>
+                    </div>
+
+                    <!-- Ô tìm kiếm (Bài 9) -->
+                    <div class="col-md-8">
+                        <form th:action="@{/students}" method="get" class="d-flex gap-2 justify-content-md-end">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                                <input type="text" name="keyword" th:value="${keyword}" 
+                                       class="form-control" placeholder="Tìm kiếm theo họ tên, mã SV, lớp...">
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary px-3">
+                                Tìm
+                            </button>
+                            <a th:if="${keyword != null and !keyword.isEmpty()}" th:href="@{/students}" class="btn btn-outline-secondary" title="Xóa bộ lọc">
+                                <i class="bi bi-x-lg"></i>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bảng danh sách sinh viên -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0 fw-bold text-primary">
+                    <i class="bi bi-table me-2"></i> Danh Sách Sinh Viên
+                </h5>
+                <span class="badge bg-secondary rounded-pill px-3 py-2">
+                    Tổng cộng: <strong th:text="${#lists.size(students)}">0</strong> sinh viên
+                </span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col" class="text-center" style="width: 50px;">#</th>
+                                <th scope="col">Mã sinh viên</th>
+                                <th scope="col">Họ và tên</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Lớp</th>
+                                <th scope="col" class="text-center" style="width: 220px;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dòng hiển thị từng sinh viên -->
+                            <tr th:each="student, iterStat : ${students}">
+                                <td class="text-center text-muted" th:text="${iterStat.count}">1</td>
+                                <td>
+                                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle badge-code fw-semibold"
+                                          th:text="${student.studentCode}">SV0001</span>
+                                </td>
+                                <td class="fw-semibold text-dark" th:text="${student.fullName}">Nguyễn Văn An</td>
+                                <td>
+                                    <a th:href="'mailto:' + ${student.email}" class="text-decoration-none text-muted" th:text="${student.email}">
+                                        an.nv@eaut.edu.vn
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border" th:text="${student.className}">D15CNPM01</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <!-- Bài 6: Chi tiết -->
+                                        <a th:href="@{/students/detail/{id}(id=${student.id})}" class="btn btn-outline-info" title="Xem chi tiết">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <!-- Bài 7: Sửa -->
+                                        <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-outline-warning" title="Chỉnh sửa">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <!-- Bài 8: Xóa -->
+                                        <a th:href="@{/students/delete/{id}(id=${student.id})}" 
+                                           class="btn btn-outline-danger" 
+                                           onclick="return confirm('Bạn có chắc chắn muốn xóa sinh viên này không?');"
+                                           title="Xóa sinh viên">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Trường hợp danh sách rỗng -->
+                            <tr th:if="${#lists.isEmpty(students)}">
+                                <td colspan="6" class="text-center py-5 text-muted">
+                                    <i class="bi bi-inbox fs-1 d-block mb-2 text-secondary"></i>
+                                    <p class="mb-1 fw-semibold">Không tìm thấy sinh viên nào!</p>
+                                    <span class="small text-muted" th:if="${keyword != null}">Hãy thử tìm kiếm với từ khóa khác hoặc bấm <a th:href="@{/students}">Xem tất cả</a>.</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Fragment -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
