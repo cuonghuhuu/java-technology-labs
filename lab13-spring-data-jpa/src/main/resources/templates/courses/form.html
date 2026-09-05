@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle != null ? pageTitle : 'Thông Tin Môn Học'} + ' - Lab 13 Spring Data JPA'">Form Môn Học</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header Navbar Fragment -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <main class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Nút quay lại -->
+                <div class="mb-3">
+                    <a th:href="@{/courses}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left me-1"></i> Quay lại danh sách môn học
+                    </a>
+                </div>
+
+                <!-- Card chứa Form -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white py-3 border-bottom">
+                        <h4 class="card-title mb-0 text-primary fw-bold">
+                            <i th:class="${course.id == null ? 'bi bi-plus-circle-fill me-2' : 'bi bi-pencil-square me-2'}"></i>
+                            <span th:text="${pageTitle != null ? pageTitle : (course.id == null ? 'Thêm Mới Môn Học' : 'Chỉnh Sửa Môn Học')}"></span>
+                        </h4>
+                        <p class="text-muted small mb-0 mt-1">Nhập các trường thông tin môn học để lưu trữ vào cơ sở dữ liệu</p>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <form th:action="@{/courses/save}" th:object="${course}" method="post" novalidate>
+                            <!-- Hidden ID -->
+                            <input type="hidden" th:field="*{id}" />
+
+                            <!-- Mã môn học -->
+                            <div class="mb-3">
+                                <label for="courseCode" class="form-label">
+                                    Mã Môn Học <span class="required-star">*</span>
+                                </label>
+                                <input type="text" th:field="*{courseCode}" class="form-control"
+                                       th:errorclass="is-invalid"
+                                       id="courseCode" placeholder="Ví dụ: IT3242">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('courseCode')}" th:errors="*{courseCode}">
+                                    Mã môn học không hợp lệ
+                                </div>
+                                <div class="form-text">Mã môn học là duy nhất, không được trùng lặp.</div>
+                            </div>
+
+                            <!-- Tên môn học -->
+                            <div class="mb-3">
+                                <label for="courseName" class="form-label">
+                                    Tên Môn Học <span class="required-star">*</span>
+                                </label>
+                                <input type="text" th:field="*{courseName}" class="form-control"
+                                       th:errorclass="is-invalid"
+                                       id="courseName" placeholder="Ví dụ: Công nghệ Java (Spring Framework)">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}">
+                                    Tên môn học không hợp lệ
+                                </div>
+                            </div>
+
+                            <!-- Số tín chỉ -->
+                            <div class="mb-3">
+                                <label for="credits" class="form-label">
+                                    Số Tín Chỉ <span class="required-star">*</span>
+                                </label>
+                                <input type="number" th:field="*{credits}" class="form-control"
+                                       th:errorclass="is-invalid"
+                                       id="credits" placeholder="Ví dụ: 3" min="1" max="10">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('credits')}" th:errors="*{credits}">
+                                    Số tín chỉ không hợp lệ
+                                </div>
+                            </div>
+
+                            <!-- Mô tả -->
+                            <div class="mb-4">
+                                <label for="description" class="form-label">Mô Tả Học Phần</label>
+                                <textarea th:field="*{description}" class="form-control" id="description" rows="3"
+                                          placeholder="Nhập mô tả tóm tắt nội dung môn học..."></textarea>
+                            </div>
+
+                            <!-- Nút Thao tác -->
+                            <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                                <a th:href="@{/courses}" class="btn btn-light border px-4">Hủy bỏ</a>
+                                <button type="submit" class="btn btn-primary px-4">
+                                    <i class="bi bi-floppy-fill me-1"></i> Lưu Môn Học
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Fragment -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+    <header th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" th:href="@{/students}">
+                <i class="bi bi-database-fill-check fs-4"></i>
+                <span>EAUT - Spring Data JPA</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/students}">
+                            <i class="bi bi-people-fill me-1"></i> Quản lý sinh viên
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/courses}">
+                            <i class="bi bi-journal-bookmark-fill me-1"></i> Quản lý môn học (Bài 8 & 9)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/h2-console}" target="_blank">
+                            <i class="bi bi-terminal-fill me-1"></i> H2 Console
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center text-white gap-2">
+                    <span class="badge bg-light text-primary px-3 py-2 fw-semibold">
+                        <i class="bi bi-mortarboard me-1"></i> Lab 13 - Spring Data JPA
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+</body>
+</html>
